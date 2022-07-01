@@ -20,6 +20,7 @@
   <head>
     <title>The Amazing Joke Machine</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
   </head>
   <body>
     <div class ="main-content">
@@ -31,17 +32,12 @@
         <!--Scenario Selector-->
         <div class="scenario-selector">
             <h2>Get the room in stitches! Pick a scenario!</h2>
-            <select>
+            <select id = "select">
                 <option>--Where needs a little levity?--</option>
-                <option> The Board Room</option>
-                <option> The Vet's</option>
-                <option> The Bank</option>
-                <option> The Pub</option>
-                <option> The Office</option>
-                <option> A Barbeque</option>
-                <option> A Wedding</option>
-                <option> A Funeral</option>
-                
+                <option id = "programming" value = "Flatiron Campus">Flatiron Campus</option>
+                <option>The Vet's</option>
+                <option></option>
+                <input id ="submitBtn" type = "submit" value= "Get a joke!">
             </select>
         </div>
 
@@ -68,6 +64,5 @@
             * Legal claims of dissatisfaction may be submitted <a>here</a>
         </p>
     </footer>
-    <script src="script.js"></script>
   </body>
 </html>
