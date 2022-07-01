@@ -16,3 +16,20 @@
     padding: 3px;
 }
 
+.title{
+    text-align: center;
+
+}
+
+.subtitle{
+    float: right;
+}
+
+#italics{
+    margin-top: 20px;
+    float: right;
+}
+
+.scenario-selector{
+    margin-top: 10%;
+}
