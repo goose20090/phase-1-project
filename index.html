@@ -19,42 +19,45 @@
 <html lang="en">
   <head>
     <title>The Amazing Joke Machine</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- TITLE AND DESCRIPTION-->
-    <h1>The Amazing Joke Machine</h1>
-    <h4><i>Satisfaction 100% guaranteed*</i></h4>
-    <h2>"a joke for every occasion"</h2>
-    <!--Scenario Selector-->
-    <select>
-        <option>--Where do you need to make laughter?--</option>
-        <option> The Vet</option>
-        <option> The Bank</option>
-        <option> The Pub</option>
-        <option> The Office</option>
-        <option> A Barbeque</option>
-    </select>
+    <div class ="main-content">
+        <!-- TITLE AND DESCRIPTION-->
+        <h1>The Amazing Joke Machine</h1>
+        <h4><i>Satisfaction 100% guaranteed*</i></h4>
+        <h2>"a joke for every occasion"</h2>
+        <!--Scenario Selector-->
+        <select>
+            <option>--Where do you need to make laughter?--</option>
+            <option> The Vet</option>
+            <option> The Bank</option>
+            <option> The Pub</option>
+            <option> The Office</option>
+            <option> A Barbeque</option>
+        </select>
 
-    <!--Joke Containers-->
+        <!--Joke Containers-->
 
-    <div id = "main-joke-container"></div>
+        <div id = "main-joke-container"></div>
 
-    <div id= "side-joke containter"></div>
+        <div id= "side-joke containter"></div>
 
-    <!--User Subimission-->
-    <h2>Not Impressed?? Submit your own!</h2>
-    <form>
-        <label>Set up...</label>
-        <input type="text"></input>
-        <label>Punchline!</label>
-        <input type="text"></input>
-        <input type = "submit"></input>
-    </form>
-
-    <footer>
+        <!--User Subimission-->
+        <h2>Not Impressed?? Submit your own!</h2>
+        <form>
+            <label>Set up...</label>
+            <input type="text"></input>
+            <label>Punchline!</label>
+            <input type="text"></input>
+            <input type = "submit"></input>
+        </form>
+    </div>
+    <footer class = "footer">
         <p>
-            *Please submit all legal claims of dissatisfaction here.
+            *Legal claims of dissatisfaction may be submitted <a>here</a>
         </p>
     </footer>
+    <script src="script.js"></script>
   </body>
 </html>

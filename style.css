@@ -1,3 +1,18 @@
-body {
-    background: blue;
-  }
+.main-content {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    margin-bottom: 45px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: -2vw;
+    text-align: right;
+    font-size: 12px;
+    width: 100vw;
+    padding: 3px;
+}
+
