@@ -2,12 +2,9 @@ document.addEventListener("DOMContentLoaded", () =>{
     const submitButton = document.getElementById("submitBtn")
     const select = document.getElementById("select")
     submitButton.addEventListener("click", ()=>{
-        console.log(select.value)
-        /*if (scenarioSelector.value == "Flatiron Campus"){
+        if (select.value == "Flatiron Campus"){
             console.log("SUCCESS!!")
         }
-    */
-   
     }
     )
 
