@@ -1,6 +1,18 @@
 document.addEventListener("DOMContentLoaded", () =>{
-    const submitButton = document.getElementById("submitBtn")
-    const select = document.getElementById("select")
+    const submitButton = document.getElementById("submitBtn");
+    const select = document.getElementById("select");
+    const randomJoke= document.getElementById("random");
+    const clearList = document.getElementById("clear");
+    let container = document.getElementById("main-joke-container")
+
+    clearList.addEventListener("click", ()=>{
+        container.innerHTML = '';
+    })
+
+    randomJoke.addEventListener('click', ()=>{
+        getRandomJoke()
+    })
+
     submitButton.addEventListener("click", ()=>{
         if (select.value == "programming"){
             getProgrammingJoke()
@@ -15,75 +27,66 @@ document.addEventListener("DOMContentLoaded", () =>{
     )
 })
 
-//STRETCH USE ARRAY METHOD TO PREVENT REPEAT JOKES
+//WRITE JOKE GETTER AS A CALLBACK AND PASS INTO ALL JOKE GETTERS TO MAKE CODE DRIER
 
+//NEXT SET UP JSON SERVER AND USE THAT INSTEAD OF API
+
+// GET SUBMIT OWN JOKE FORM WORKING
+
+// GET RANDOM JOKE BUTTON WORKING
+
+//STRETCH-  USE ARRAY METHOD TO PREVENT REPEAT JOKES
+
+//STRETCH- HAVE AN ALERT MESSAGE THAT PLAYS WHEN A MAXIMUM NUMBER OF SPOOKY JOKES HAS BEEN PUT ON THE DOM
+
+// Have the Opportunity to like jokes and put them on a favourite list
 
 function getProgrammingJoke(){
     fetch('https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,racist,sexist,explicit')
     .then(resp=>{
-        console.log(resp.status)
-        console.log(resp.ok)
         return resp.json()
     })
-    .then(joke => {
-        if(joke.joke !== undefined){
-        console.log(joke)
-        let jokeP = document.createElement("p")
-        jokeP.textContent = joke.joke
-        let container = document.getElementById("main-joke-container")
-        container.append(jokeP)}
-
-        else{
-            let jokeP = document.createElement("p")
-        jokeP.textContent = `${joke.setup} ${joke.delivery}`
-        let container = document.getElementById("main-joke-container")
-        container.append(jokeP)
-        }
-
-    })
+    .then(joke => appendJoke(joke))
 
 }
 
 function getChristmasJoke(){
     fetch('https://v2.jokeapi.dev/joke/Christmas?blacklistFlags=nsfw,racist,sexist,explicit')
     .then(resp=>{
-        console.log(resp.status)
-        console.log(resp.ok)
         return resp.json()
     })
-    .then(joke => {
-        console.log(joke)
-        let jokeP = document.createElement("p")
-        jokeP.textContent = `${joke.setup} ${joke.delivery}`
-        let container = document.getElementById("main-joke-container")
-        container.append(jokeP)
-
-    })
+    .then(joke => appendJoke(joke))
 }
 
 function getSpookyJoke(){
     fetch('https://v2.jokeapi.dev/joke/Spooky?blacklistFlags=nsfw,racist,sexist,explicit')
     .then(resp=>{
-        console.log(resp.status)
-        console.log(resp.ok)
         return resp.json()
     })
-    .then(joke => {
+    .then(joke => appendJoke(joke))
+}
+
+function getRandomJoke(){
+    fetch('https://v2.jokeapi.dev/joke/Pun?blacklistFlags=nsfw,racist,sexist,explicit')
+    .then(resp=>{
+        return resp.json()
+    })
+    .then(joke => appendJoke(joke))
+
+}
+
+function appendJoke(joke){
         if(joke.joke !== undefined){
-        console.log(joke)
         let jokeP = document.createElement("p")
         jokeP.textContent = joke.joke
         let container = document.getElementById("main-joke-container")
-        container.append(jokeP)}
+        container.append(jokeP)
+    }
 
         else{
             let jokeP = document.createElement("p")
         jokeP.textContent = `${joke.setup} ${joke.delivery}`
         let container = document.getElementById("main-joke-container")
         container.append(jokeP)
-        }
-
-    })
-
+    }
 }
-
