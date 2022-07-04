@@ -26,11 +26,17 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
     })
 
-    form.addEventListener("submit", (event)=>{
-        event.preventDefault();
-        console.log("Event Submit LOG")
-    })
+    form.addEventListener("submit", handleSubmit)
+
 })
+
+
+function handleSubmit(e){
+    e.preventDefault();
+        let setup = document.getElementById("setUp");
+        let punchline = document.getElementById("punchline");
+
+}
 
 //WRITE JOKE GETTER AS A CALLBACK AND PASS INTO ALL JOKE GETTERS TO MAKE CODE DRIER- DONE
 
