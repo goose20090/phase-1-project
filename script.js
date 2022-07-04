@@ -30,6 +30,19 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 })
 
+function postNewJoke(jokeObj){
+    fetch('http://localhost:3000/jokes', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(jokeObj)
+    })
+    .then(resp => resp.json())
+    .then(joke => console.log(joke))
+}
+
+
 
 function handleSubmit(e){
     e.preventDefault();
@@ -38,14 +51,15 @@ function handleSubmit(e){
     let jokeObj = {
         category: "userSubmitted",
         type: "twopart",
-        setup: setUp.value,
+        setup: buildUp.value,
         delivery: punchline.value,
         safe: true,
         lang: "en",
 
     }
-
-    console.log (jokeObj)
+    postNewJoke(jokeObj)
+    buildUp.value = ''
+    punchline.value = ''
 
 }
 
@@ -90,7 +104,7 @@ function getSpookyJoke(){
 }
 
 function getRandomJoke(){
-    fetch('https://v2.jokeapi.dev/joke/Pun?blacklistFlags=nsfw,racist,sexist,explicit')
+    fetch('https://v2.jokeapi.dev/joke/Pun?safe-mode')
     .then(resp=>{
         return resp.json()
     })
