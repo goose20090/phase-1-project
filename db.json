@@ -1,0 +1,22 @@
+{ "jokes": [
+    
+    {
+    "error": false,
+    "category": "Christmas",
+    "type": "twopart",
+    "setup": "Why did Santa's helper see the doctor?",
+    "delivery": "Because he had a low \"elf\" esteem!",
+    "flags": {
+        "nsfw": false,
+        "religious": false,
+        "political": false,
+        "racist": false,
+        "sexist": false,
+        "explicit": false
+    },
+    "id": 243,
+    "safe": true,
+    "lang": "en"
+}
+
+]}
