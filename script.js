@@ -33,10 +33,22 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 function handleSubmit(e){
     e.preventDefault();
-        let setup = document.getElementById("setUp");
-        let punchline = document.getElementById("punchline");
+    let buildUp = document.getElementById("build-up");
+    let punchline = document.getElementById("punchline");
+    let jokeObj = {
+        category: "userSubmitted",
+        type: "twopart",
+        setup: setUp.value,
+        delivery: punchline.value,
+        safe: true,
+        lang: "en",
+
+    }
+
+    console.log (jokeObj)
 
 }
+
 
 //WRITE JOKE GETTER AS A CALLBACK AND PASS INTO ALL JOKE GETTERS TO MAKE CODE DRIER- DONE
 
