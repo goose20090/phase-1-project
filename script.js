@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () =>{
     const randomJoke= document.getElementById("random");
     const clearList = document.getElementById("clear");
     let container = document.getElementById("main-joke-container")
+    const form = document.getElementById("jokeInputForm")
 
     clearList.addEventListener("click", ()=>{
         container.innerHTML = '';
@@ -23,17 +24,21 @@ document.addEventListener("DOMContentLoaded", () =>{
         else if (select.value == "spooky"){
             getSpookyJoke()
         }
-    }
-    )
+    })
+
+    form.addEventListener("submit", (event)=>{
+        event.preventDefault();
+        console.log("Event Submit LOG")
+    })
 })
 
-//WRITE JOKE GETTER AS A CALLBACK AND PASS INTO ALL JOKE GETTERS TO MAKE CODE DRIER
+//WRITE JOKE GETTER AS A CALLBACK AND PASS INTO ALL JOKE GETTERS TO MAKE CODE DRIER- DONE
 
 //NEXT SET UP JSON SERVER AND USE THAT INSTEAD OF API
 
 // GET SUBMIT OWN JOKE FORM WORKING
 
-// GET RANDOM JOKE BUTTON WORKING
+// GET RANDOM JOKE BUTTON WORKING- DONE
 
 //STRETCH-  USE ARRAY METHOD TO PREVENT REPEAT JOKES
 
