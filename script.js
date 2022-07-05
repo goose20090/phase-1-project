@@ -7,9 +7,8 @@ document.addEventListener("DOMContentLoaded", () =>{
     const form = document.getElementById("jokeInputForm");
     const punchLine = document.getElementById("punchline");
     const punchLineLabel = document.getElementById("punchline-label");
-    const submitBtn = document.getElementById("user-submit")
     const buildUpLabel = document.getElementById("build-up-label")
-    const checkbox= document.getElementById("single-joke-checkbox")
+    const checkbox= document.getElementById("checkbox")
     const buildUp = document.getElementById("build-up")
 
     checkbox.addEventListener('change', ()=>{
@@ -39,6 +38,9 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
         else if (select.value == "spooky"){
             getSpookyJoke()
+        }
+        else if (select.value == "userSubmitted"){
+            getUserJoke()
         }
     })
 
@@ -114,13 +116,6 @@ document.addEventListener("DOMContentLoaded", () =>{
         .then(joke => appendJoke(joke))
     }
     
-    // ALLOW USERS TO TOGGLE WHETHER THEIR JOKE IS A SINGLE LINE OR A SET UP AND PUNCH LINE STYLE JOKE
-    
-    //- add event listener -DONE
-    
-    //- change inner html of form -DONE
-    
-    //- add event listener to new form that makes process reversible
     
     //STRETCH-  USE ARRAY METHOD TO PREVENT REPEAT JOKES
     
@@ -160,6 +155,19 @@ document.addEventListener("DOMContentLoaded", () =>{
         })
         .then(joke => appendJoke(joke))
     
+    }
+
+    function getUserJoke(){
+        fetch('http://localhost:3000/jokes')
+        .then(resp=> {
+            return resp.json()
+        })
+        .then(function(jokes){
+            let joke = jokes[Math.floor(Math.random()*jokes.length)]
+            console.log(joke)
+            appendJoke(joke)
+        })
+
     }
     
     function appendJoke(joke){
