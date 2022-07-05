@@ -58,6 +58,17 @@ function changeToSingleForm(){
 
 function handleSubmit(e){
     e.preventDefault();
+
+    if(document.getElementById("user-submit-select") == null){
+        let select = document.getElementById("select")
+        let userSubmitSelect = document.createElement("option")
+        userSubmitSelect.setAttribute("value", "userSubmitted")
+        userSubmitSelect.innerText= "I want my own material!"
+        select.append(userSubmitSelect)
+        
+    }
+
+
     if (document.getElementById("single-joke-input")!== null){
         let oneLiner = document.getElementById("single-joke-input")
         let jokeObj = {
