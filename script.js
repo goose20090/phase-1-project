@@ -10,6 +10,13 @@ document.addEventListener("DOMContentLoaded", () =>{
     const buildUpLabel = document.getElementById("build-up-label")
     const checkbox= document.getElementById("checkbox")
     const buildUp = document.getElementById("build-up")
+    let emptyHeart = document.createElement("span")
+    emptyHeart.className = "empty-heart"
+    emptyHeart.innerHTML = "&#9825;"
+    emptyHeart.addEventListener("click", ()=>{
+        console.log("hellooo")
+    })
+
 
     checkbox.addEventListener('change', ()=>{
 
@@ -164,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         })
         .then(function(jokes){
             let joke = jokes[Math.floor(Math.random()*jokes.length)]
-            console.log(joke)
+            console.log(joke.id)
             appendJoke(joke)
         })
 
@@ -173,16 +180,17 @@ document.addEventListener("DOMContentLoaded", () =>{
     function appendJoke(joke){
             if(joke.joke !== undefined){
             let jokeP = document.createElement("p")
-            jokeP.textContent = joke.joke
+            jokeP.innerHTML = `${joke.joke} &#9825;`
             let container = document.getElementById("main-joke-container")
             container.append(jokeP)
         }
     
             else{
                 let jokeP = document.createElement("p")
-            jokeP.textContent = `${joke.setup} ${joke.delivery}`
-            let container = document.getElementById("main-joke-container")
-            container.append(jokeP)
+                jokeP.innerHTML = `${joke.setup} ${joke.delivery}`
+                let container = document.getElementById("main-joke-container")
+                container.append(jokeP)
+                jokeP.append(emptyHeart)
         }
     }
 

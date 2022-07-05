@@ -37,3 +37,16 @@
 .user-submission{
     margin-top: 30%;
 }
+
+#random{
+    float: right;
+    display: inline;
+}
+
+#clear{
+    float: right;
+}
+
+.empty-heart{
+    cursor: pointer;
+}
