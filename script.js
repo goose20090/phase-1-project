@@ -3,12 +3,23 @@ document.addEventListener("DOMContentLoaded", () =>{
     const select = document.getElementById("select");
     const randomJoke= document.getElementById("random");
     const clearList = document.getElementById("clear");
-    let container = document.getElementById("main-joke-container");
+    const container = document.getElementById("main-joke-container");
     const form = document.getElementById("jokeInputForm");
-    const singleJokeBox= document.getElementById("single-joke-checkbox")
+    const punchLine = document.getElementById("punchline");
+    const punchLineLabel = document.getElementById("punchline-label");
+    const submitBtn = document.getElementById("user-submit")
+    const buildUpLabel = document.getElementById("build-up-label")
+    const checkbox= document.getElementById("single-joke-checkbox")
+    const buildUp = document.getElementById("build-up")
 
-    singleJokeBox.addEventListener('change', ()=>{
-        changeToSingleForm()
+    checkbox.addEventListener('change', ()=>{
+
+        if (document.getElementById("single-joke-input") == null){
+            changeToSingleForm()
+        }
+        else if (document.getElementById("build-up")== null){
+            changetoDoubleForm()
+        }
     })
 
     clearList.addEventListener("click", ()=>{
@@ -33,145 +44,146 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     form.addEventListener("submit", handleSubmit)
 
-})
 
-function changeToSingleForm(){
-    let form = document.getElementById("jokeInputForm");
-    form.innerHTML = '';
-    let jokeInputLabel = document.createElement("label");
-    let jokeInput = document.createElement("input");
-    let jokeSubmit = document.createElement("input");
-    let doubleJokeBox = document.createElement("input");
-    
-    jokeInputLabel.innerText = "Put in your one-liner!"
-    jokeInput.id = "single-joke-input"
-    jokeSubmit.setAttribute("type", "submit")
-    jokeSubmit.id = "submitBtn"
-    doubleJokeBox.setAttribute("type", "checkbox")
-    doubleJokeBox.id = ("double-joke-checkbox")
+    function changeToSingleForm(){
 
-    form.append(jokeInputLabel, jokeInput, jokeSubmit, doubleJokeBox)
-}
-
-
-
-
-function handleSubmit(e){
-    e.preventDefault();
-
-    if(document.getElementById("user-submit-select") == null){
-        let select = document.getElementById("select")
-        let userSubmitSelect = document.createElement("option")
-        userSubmitSelect.setAttribute("value", "userSubmitted")
-        userSubmitSelect.innerText= "I want my own material!"
-        select.append(userSubmitSelect)
-        
+        punchLine.disabled = true;
+        punchLineLabel.textContent = ""
+        buildUpLabel.textContent = "One Liner..."
+        document.getElementById("build-up").id = "single-joke-input"
     }
 
+    function changetoDoubleForm(){
+        punchLine.disabled = false;
+        punchLineLabel.textContent = "Punchline!"
+        buildUpLabel.textContent = "Set up..."
+        document.getElementById("single-joke-input").id = "build-up"
 
-    if (document.getElementById("single-joke-input")!== null){
-        let oneLiner = document.getElementById("single-joke-input")
-        let jokeObj = {
+    }
+    
+    function handleSubmit(e){
+        e.preventDefault();
+    
+        if(document.getElementById("user-submit-select") == null){
+            let userSubmitSelect = document.createElement("option")
+            userSubmitSelect.setAttribute("value", "userSubmitted")
+            userSubmitSelect.innerText= "I want my own material!"
+            select.append(userSubmitSelect)
             
+        }
+    
+    
+        if (document.getElementById("single-joke-input")!== null){
+            let oneLiner = document.getElementById("single-joke-input")
+            let jokeObj = {
+                
+                    category: "userSubmitted",
+                    type: "single",
+                    joke: oneLiner.value,
+                    safe: true,
+                    lang: "en",
+            }
+            postNewJoke(jokeObj);
+            oneLiner.value = ""
+        }
+        else {
+            let jokeObj = {
                 category: "userSubmitted",
-                type: "single",
-                joke: oneLiner.value,
+                type: "twopart",
+                setup: buildUp.value,
+                delivery: punchLine.value,
                 safe: true,
                 lang: "en",
-        }
-        postNewJoke(jokeObj);
-        oneLiner.value = ""
+    
+            }
+            postNewJoke(jokeObj)
+            buildUp.value = ''
+            punchline.value = ''}
+    
     }
-    else {
-        let buildUp = document.getElementById("build-up");
-        let punchline = document.getElementById("punchline");
-        let jokeObj = {
-            category: "userSubmitted",
-            type: "twopart",
-            setup: buildUp.value,
-            delivery: punchline.value,
-            safe: true,
-            lang: "en",
-
-        }
-        postNewJoke(jokeObj)
-        buildUp.value = ''
-        punchline.value = ''}
-
-}
-
-function postNewJoke(jokeObj){
-    fetch('http://localhost:3000/jokes', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(jokeObj)
-    })
-    .then(resp => resp.json())
-    .then(joke => appendJoke(joke))
-}
-
-// ALLOW USERS TO TOGGLE WHETHER THEIR JOKE IS A SINGLE LINE OR A SET UP AND PUNCH LINE STYLE JOKE
-
-//- add event listener
-
-//- change inner html of form
-
-//- add event listener to new form that makes process reversible
-
-//STRETCH-  USE ARRAY METHOD TO PREVENT REPEAT JOKES
-
-//STRETCH- HAVE AN ALERT MESSAGE THAT PLAYS WHEN A MAXIMUM NUMBER OF SPOOKY JOKES HAS BEEN PUT ON THE DOM
-
-//STRETCH- GIVE OPPORTUNITY TO LIKE JOKES AND ADD THEM TO A FAVOURITE LIST
-
-function getProgrammingJoke(){
-    fetch('https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,racist,sexist,explicit')
-    .then(resp=>{
-        return resp.json()
-    })
-    .then(joke => appendJoke(joke))
-
-}
-
-function getChristmasJoke(){
-    fetch('https://v2.jokeapi.dev/joke/Christmas?blacklistFlags=nsfw,racist,sexist,explicit')
-    .then(resp=>{
-        return resp.json()
-    })
-    .then(joke => appendJoke(joke))
-}
-
-function getSpookyJoke(){
-    fetch('https://v2.jokeapi.dev/joke/Spooky?blacklistFlags=nsfw,racist,sexist,explicit')
-    .then(resp=>{
-        return resp.json()
-    })
-    .then(joke => appendJoke(joke))
-}
-
-function getRandomJoke(){
-    fetch('https://v2.jokeapi.dev/joke/Pun?safe-mode')
-    .then(resp=>{
-        return resp.json()
-    })
-    .then(joke => appendJoke(joke))
-
-}
-
-function appendJoke(joke){
-        if(joke.joke !== undefined){
-        let jokeP = document.createElement("p")
-        jokeP.textContent = joke.joke
-        let container = document.getElementById("main-joke-container")
-        container.append(jokeP)
+    
+    function postNewJoke(jokeObj){
+        fetch('http://localhost:3000/jokes', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jokeObj)
+        })
+        .then(resp => resp.json())
+        .then(joke => appendJoke(joke))
     }
-
-        else{
+    
+    // ALLOW USERS TO TOGGLE WHETHER THEIR JOKE IS A SINGLE LINE OR A SET UP AND PUNCH LINE STYLE JOKE
+    
+    //- add event listener -DONE
+    
+    //- change inner html of form -DONE
+    
+    //- add event listener to new form that makes process reversible
+    
+    //STRETCH-  USE ARRAY METHOD TO PREVENT REPEAT JOKES
+    
+    //STRETCH- HAVE AN ALERT MESSAGE THAT PLAYS WHEN A MAXIMUM NUMBER OF SPOOKY JOKES HAS BEEN PUT ON THE DOM
+    
+    //STRETCH- GIVE OPPORTUNITY TO LIKE JOKES AND ADD THEM TO A FAVOURITE LIST
+    
+    function getProgrammingJoke(){
+        fetch('https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,racist,sexist,explicit')
+        .then(resp=>{
+            return resp.json()
+        })
+        .then(joke => appendJoke(joke))
+    
+    }
+    
+    function getChristmasJoke(){
+        fetch('https://v2.jokeapi.dev/joke/Christmas?blacklistFlags=nsfw,racist,sexist,explicit')
+        .then(resp=>{
+            return resp.json()
+        })
+        .then(joke => appendJoke(joke))
+    }
+    
+    function getSpookyJoke(){
+        fetch('https://v2.jokeapi.dev/joke/Spooky?blacklistFlags=nsfw,racist,sexist,explicit')
+        .then(resp=>{
+            return resp.json()
+        })
+        .then(joke => appendJoke(joke))
+    }
+    
+    function getRandomJoke(){
+        fetch('https://v2.jokeapi.dev/joke/Pun?safe-mode')
+        .then(resp=>{
+            return resp.json()
+        })
+        .then(joke => appendJoke(joke))
+    
+    }
+    
+    function appendJoke(joke){
+            if(joke.joke !== undefined){
             let jokeP = document.createElement("p")
-        jokeP.textContent = `${joke.setup} ${joke.delivery}`
-        let container = document.getElementById("main-joke-container")
-        container.append(jokeP)
+            jokeP.textContent = joke.joke
+            let container = document.getElementById("main-joke-container")
+            container.append(jokeP)
+        }
+    
+            else{
+                let jokeP = document.createElement("p")
+            jokeP.textContent = `${joke.setup} ${joke.delivery}`
+            let container = document.getElementById("main-joke-container")
+            container.append(jokeP)
+        }
     }
-}
+
+
+
+
+
+
+
+
+
+})
