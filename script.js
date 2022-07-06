@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
         punchLine.disabled = true;
         punchLineLabel.textContent = ""
+        buildUp.setAttribute("size", 30)
         buildUpLabel.textContent = "One Liner..."
         document.getElementById("build-up").id = "single-joke-input"
     }
@@ -60,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         punchLine.disabled = false;
         punchLineLabel.textContent = "Punchline!"
         buildUpLabel.textContent = "Set up..."
+        buildUp.setAttribute("size", 20)
         document.getElementById("single-joke-input").id = "build-up"
 
     }
