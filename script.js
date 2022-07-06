@@ -173,16 +173,21 @@ document.addEventListener("DOMContentLoaded", () =>{
     
     function appendJoke(joke){
         let emptyHeart = document.createElement("span")
-    emptyHeart.className = "empty-heart"
-    emptyHeart.innerHTML = "&#9825;"
+        emptyHeart.className = "empty-heart"
+        emptyHeart.innerHTML = "&#9825;"
+
+        let cross = document.createElement("span")
+        cross.className = "cross"
+        cross.innerHTML = "&#215;"
 
             if(joke.joke !== undefined){
             let jokeP = document.createElement("p")
             jokeP.innerHTML = joke.joke
             let container = document.getElementById("main-joke-container")
             container.append(jokeP)
-            jokeP.append(emptyHeart)
+            jokeP.append(emptyHeart, cross)
             addHeartListener(emptyHeart)
+            addCrossListener(cross)
         }
     
             else{
@@ -190,22 +195,40 @@ document.addEventListener("DOMContentLoaded", () =>{
                 jokeP.innerHTML = `${joke.setup} ${joke.delivery}`
                 let container = document.getElementById("main-joke-container")
                 container.append(jokeP)
-                jokeP.append(emptyHeart)
+                jokeP.append(emptyHeart, cross)
                 addHeartListener(emptyHeart)
+                addCrossListener(cross)
         }
     }
 
 function addHeartListener(heart){
     heart.addEventListener('click', ()=>{
-        heart.innerHTML = "&#9829;";
-        heart.className = "full-heart";
+        if (document.getElementById("loved-list-headline")!== null){
+            let h2 = document.createElement("h2")
+            h2.textContent = "My Favourite Jokes"
+
+        }
+        handleHeartClick(heart)
+
     })
 }
 
+function addCrossListener(cross){
+    cross.addEventListener('click', ()=>{
+    let fullJoke = cross.parentElement
+    fullJoke.remove()
+}
 
+    )}
 
-
-
+function handleHeartClick(heart){
+        heart.innerHTML = "&#9829;";
+        heart.className = "full-heart";
+        let fullJoke = heart.parentElement
+        let lovedList= document.getElementById("loved-list")
+        fullJoke.remove
+        lovedList.append(fullJoke)
+}
 
 
 })
