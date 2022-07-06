@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         if(document.getElementById("user-submit-select") == null){
             let userSubmitSelect = document.createElement("option")
             userSubmitSelect.setAttribute("value", "userSubmitted")
+            userSubmitSelect.id = "user-submit-select"
             userSubmitSelect.innerText= "I want my own material!"
             select.append(userSubmitSelect)
             
@@ -120,11 +121,11 @@ document.addEventListener("DOMContentLoaded", () =>{
     }
     
     
-    //STRETCH-  USE ARRAY METHOD TO PREVENT REPEAT JOKES
+    //STRETCH-  USE ARRAY METHOD TO PREVENT REPEAT JOKES- PARTIALLY DONE
     
-    //STRETCH- HAVE AN ALERT MESSAGE THAT PLAYS WHEN A MAXIMUM NUMBER OF SPOOKY JOKES HAS BEEN PUT ON THE DOM
+    //STRETCH- HAVE AN ALERT MESSAGE THAT PLAYS WHEN A MAXIMUM NUMBER OF JOKES HAS BEEN PUT ON THE DOM
     
-    //STRETCH- GIVE OPPORTUNITY TO LIKE JOKES AND ADD THEM TO A FAVOURITE LIST
+    //STRETCH- GIVE OPPORTUNITY TO LIKE JOKES AND ADD THEM TO A FAVOURITE LIST- DONE
     
     function getProgrammingJoke(){
         fetch('https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,racist,sexist,explicit')
@@ -149,6 +150,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             return resp.json()
         })
         .then(joke => appendJoke(joke))
+        
     }
     
     function getRandomJoke(){
@@ -167,9 +169,26 @@ document.addEventListener("DOMContentLoaded", () =>{
         })
         .then(function(jokes){
             let joke = jokes[Math.floor(Math.random()*jokes.length)]
-            console.log(joke.id)
             appendJoke(joke)
         })
+
+    }
+
+    function checkJokeExistance(jokeP){
+        let jokes = document.querySelectorAll('p')
+        
+        let i = 0
+        for (joke of jokes){
+            if (joke.innerText === jokeP.innerText){
+                i++;
+                console.log(i)
+                if (i> 1){
+                    joke.remove()
+                    
+                }
+            }
+        }
+        
 
     }
     
@@ -184,22 +203,27 @@ document.addEventListener("DOMContentLoaded", () =>{
 
             if(joke.joke !== undefined){
             let jokeP = document.createElement("p")
+            jokeP.className = "joke"
             jokeP.innerHTML = joke.joke
+            checkJokeExistance(jokeP)
             let container = document.getElementById("main-joke-container")
             container.append(jokeP)
             jokeP.append(emptyHeart, cross)
             addHeartListener(emptyHeart)
             addCrossListener(cross)
+            
         }
     
             else{
                 let jokeP = document.createElement("p")
+                jokeP.className= "joke"
                 jokeP.innerHTML = `${joke.setup} ${joke.delivery}`
                 let container = document.getElementById("main-joke-container")
                 container.append(jokeP)
                 jokeP.append(emptyHeart, cross)
                 addHeartListener(emptyHeart)
                 addCrossListener(cross)
+                checkJokeExistance(jokeP)
         }
     }
 
