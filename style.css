@@ -50,3 +50,9 @@
 .empty-heart{
     cursor: pointer;
 }
+
+.full-heart{
+    color: red;
+    font-size: 20px;
+    
+}

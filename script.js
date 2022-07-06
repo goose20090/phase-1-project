@@ -10,13 +10,7 @@ document.addEventListener("DOMContentLoaded", () =>{
     const buildUpLabel = document.getElementById("build-up-label")
     const checkbox= document.getElementById("checkbox")
     const buildUp = document.getElementById("build-up")
-    let emptyHeart = document.createElement("span")
-    emptyHeart.className = "empty-heart"
-    emptyHeart.innerHTML = "&#9825;"
-    emptyHeart.addEventListener("click", ()=>{
-        console.log("hellooo")
-    })
-
+    
 
     checkbox.addEventListener('change', ()=>{
 
@@ -178,11 +172,17 @@ document.addEventListener("DOMContentLoaded", () =>{
     }
     
     function appendJoke(joke){
+        let emptyHeart = document.createElement("span")
+    emptyHeart.className = "empty-heart"
+    emptyHeart.innerHTML = "&#9825;"
+
             if(joke.joke !== undefined){
             let jokeP = document.createElement("p")
-            jokeP.innerHTML = `${joke.joke} &#9825;`
+            jokeP.innerHTML = joke.joke
             let container = document.getElementById("main-joke-container")
             container.append(jokeP)
+            jokeP.append(emptyHeart)
+            addHeartListener(emptyHeart)
         }
     
             else{
@@ -191,10 +191,16 @@ document.addEventListener("DOMContentLoaded", () =>{
                 let container = document.getElementById("main-joke-container")
                 container.append(jokeP)
                 jokeP.append(emptyHeart)
+                addHeartListener(emptyHeart)
         }
     }
 
-
+function addHeartListener(heart){
+    heart.addEventListener('click', ()=>{
+        heart.innerHTML = "&#9829;";
+        heart.className = "full-heart";
+    })
+}
 
 
 
