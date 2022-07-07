@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () =>{
     }
     
     
-    //STRETCH-  USE ARRAY METHOD TO PREVENT REPEAT JOKES- PARTIALLY DONE
+    //STRETCH-  USE ARRAY METHOD TO PREVENT REPEAT JOKES- PARTIALLY DONE (JOKEs do not repeat. Would like to have a message that caps the number of spooky jokes)
     
     //STRETCH- HAVE AN ALERT MESSAGE THAT PLAYS WHEN A MAXIMUM NUMBER OF JOKES HAS BEEN PUT ON THE DOM
     
@@ -174,23 +174,44 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     }
 
-    function checkJokeExistance(jokeP){
+    function checkJokeExistance(joke, jokeP){
+        console.log(joke)
         let jokes = document.querySelectorAll('p')
-        
+        let category = joke.category
         let i = 0
-        for (joke of jokes){
-            if (joke.innerText === jokeP.innerText){
+        for (existingP of jokes){
+            if (existingP.innerText === jokeP.innerText){
                 i++;
-                console.log(i)
                 if (i> 1){
-                    joke.remove()
-                    
+                    jokeP.remove()
+                    if (category == "Spooky"){
+                        let spookyJokes = document.getElementsByClassName("spooky")
+                        if(spookyJokes.length === 7){
+                            alert("we're out of spooky jokes!")
+                            
+                        }
+                        else getSpookyJoke()
+                    }
+                    if (category == "userSubmitted")
+                    {
+                        console.log(getNoOfUserJokes())
+                        
+                    }
                 }
+                    
             }
         }
-        
-
     }
+        
+function getNoOfUserJokes(){
+    fetch('http://localhost:3000/jokes')
+    .then(resp=> {
+    return resp.json()
+    })
+    .then(function(jokes){
+    return jokes.length
+    })
+}
     
     function appendJoke(joke){
         let emptyHeart = document.createElement("span")
@@ -201,29 +222,30 @@ document.addEventListener("DOMContentLoaded", () =>{
         cross.className = "cross"
         cross.innerHTML = "&#215;"
 
+
             if(joke.joke !== undefined){
             let jokeP = document.createElement("p")
-            jokeP.className = "joke"
+            addJokeClass(joke, jokeP)
             jokeP.innerHTML = joke.joke
-            checkJokeExistance(jokeP)
             let container = document.getElementById("main-joke-container")
             container.append(jokeP)
             jokeP.append(emptyHeart, cross)
             addHeartListener(emptyHeart)
             addCrossListener(cross)
+            checkJokeExistance(joke,jokeP)
             
         }
     
             else{
                 let jokeP = document.createElement("p")
-                jokeP.className= "joke"
+                addJokeClass(joke,jokeP)
                 jokeP.innerHTML = `${joke.setup} ${joke.delivery}`
                 let container = document.getElementById("main-joke-container")
                 container.append(jokeP)
                 jokeP.append(emptyHeart, cross)
                 addHeartListener(emptyHeart)
                 addCrossListener(cross)
-                checkJokeExistance(jokeP)
+                checkJokeExistance(joke,jokeP)
         }
     }
 
@@ -258,3 +280,24 @@ function handleHeartClick(heart){
 
 
 })
+
+function addJokeClass(joke, jokeP){
+    if (joke.category== "Programming"){
+        jokeP.className = "programming"
+        console.log("PROGRAMMING JOKE RESPONSE",jokeP)
+    }
+    else if (joke.category == "Christmas"){
+        jokeP.className = "christmas"
+        console.log(jokeP)
+    }
+    else if (joke.category == "Spooky"){
+        jokeP.className = "spooky"
+    }
+    else if (joke.category == "userSubmitted"){
+        jokeP.className = "user-submitted"
+    }
+    else if (joke.category == "Pun"){
+        jokeP.className = "random"
+
+    }
+}
