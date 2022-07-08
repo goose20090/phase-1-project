@@ -61,6 +61,9 @@ document.addEventListener("DOMContentLoaded", () =>{
         else if (select.value == "userSubmitted"){
             getMultipleUserJokes()
         }
+        else if (select.value = "default"){
+            getMultipleRandomJokes()
+        }
     })
 
     form.addEventListener("submit", handleSubmit)
@@ -217,11 +220,22 @@ document.addEventListener("DOMContentLoaded", () =>{
         .then(jokes=> appendMultipleJokes(jokes))
     }
 
+    function getMultipleRandomJokes(){
+        
+        fetch('https://v2.jokeapi.dev/joke/Pun?blacklistFlags=nsfw,racist,sexist,explicit&amount=9')
+        .then(resp=>{
+            return resp.json()
+        })
+        .then(jokes=> appendMultipleJokes(jokes))
+
+    }
+
     function appendMultipleJokes(jokes){
         let jokesArr = Object.values(jokes.jokes)
 
         jokesArr.forEach(joke => appendJoke(joke))
     }
+
 
         
     function getMultipleUserJokes(){ 
@@ -350,7 +364,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                         jokeP.remove()
                         let spookyJokes = document.getElementsByClassName("spooky")
                         if(spookyJokes.length === 7){
-                            alert("we're out of spooky jokes!")
+                            alert("We're fresh out of spooky jokes!")
                             
                         }
                         else getSpookyJoke()
