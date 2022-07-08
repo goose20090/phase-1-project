@@ -3,11 +3,19 @@
     {
       "category": "userSubmitted",
       "type": "twopart",
-      "setup": "Why did the chicken cross the road",
-      "delivery": "To get to the other side",
+      "setup": "Why did the chicken cross the road?",
+      "delivery": "To get to the other side!",
       "safe": true,
       "lang": "en",
       "id": 1
+    },
+    {
+      "category": "userSubmitted",
+      "type": "single",
+      "joke": "I used to hate Minions, but they Gru on me!",
+      "safe": true,
+      "lang": "en",
+      "id": 2
     }
   ]
 }
