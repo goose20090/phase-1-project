@@ -25,9 +25,9 @@ It was partly designed to fulfil a set of passing criteria for the phase 1 proje
 
 1) The app must be a HTML/CSS/JS frontend that accesses data from a public API
 
-    The api being used for this web app is the JokeAPI found at the following URL: https://jokeapi.dev/. Besides having a database of 1369 jokes, it also offers a variety of filtering features. The user can interact with those features by using the different options of the drop-down menu.
+    The api being used for this web app is the [JokeAPI](https://jokeapi.dev/). Besides having a database of 1369 jokes, it also offers a variety of filtering features. The user can interact with those features by using the different options of the drop-down menu.
 
-    To have the user submit their own jokes, a json server was used to seperately save and return the user's jokes.
+    To have the user submit their own jokes, a json-server was created with the [json-server NPM](https://www.npmjs.com/package/json-server) to seperately save and return the user's jokes.
 
 2) The entire app must run on a single page
 
@@ -56,21 +56,3 @@ It was partly designed to fulfil a set of passing criteria for the phase 1 proje
 - This was a stimulating and enjoyable project to round off the first phase of my course. Further improvements I would like to make would be limiting the amount of user-generated jokes to the amount that are in the json-server and providing some aesthetic features like a darkmode.
 
 
-
-
-<!-- 
-    As a user I want to be able to:
-
-    - Select scenarios from a drop down menu that will affect the joke that's generated
-
-    - Generate a joke relevant to the scenario that's been selected and have it be displayed on the DOM
-
-    - Have a central joke dsiplay area where the most recently generated joke is displayed
-
-    - Have a display area to the side of teh page where previously generated jokes are displayed
-
-    - Have a random joke button that will generate a random joke
-
-    - Give the opportunity for the user to submit their own joke and get it back when they select a specific option from the drop-down menu
-
--->
